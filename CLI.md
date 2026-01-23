@@ -24,7 +24,39 @@ Typical output includes:
 
 3) Search the ecosystem
 - `tsci search "<query>"`
-  - Finds footprints and packages
+  - Finds footprints, components, and packages across multiple sources
+
+Search flags:
+- `--jlcpcb` (or `--lcsc`) – Search JLCPCB/LCSC components by name or part number
+- `--kicad` – Search KiCad footprint library
+- `--tscircuit` – Search tscircuit registry packages
+
+Examples:
+```bash
+# Search JLCPCB for microcontrollers
+tsci search --jlcpcb "ATmega328"
+# Output: ATMEGA328P-AU (C14877) - stock: 20,226
+
+# Search JLCPCB by part number
+tsci search --jlcpcb "C14877"
+
+# Search for USB-C connectors on JLCPCB
+tsci search --jlcpcb "USB-C 16pin"
+
+# Search KiCad footprints
+tsci search --kicad "QFP-32"
+# Output: kicad:Package_QFP/LQFP-32_5x5mm_P0.5mm
+
+# Search KiCad for SMD resistor footprints
+tsci search --kicad "0402"
+
+# Search tscircuit registry for existing projects
+tsci search --tscircuit "LED"
+# Output: seveibar/usb-c-flashlight - Stars: 5
+
+# Search without flags (searches all sources)
+tsci search "ESP32"
+```
 
 4) Add existing registry packages to your project
 - `tsci add <author/pkg>`
@@ -35,9 +67,27 @@ Typical output includes:
 
 5) Import components (e.g., from JLCPCB)
 - `tsci import <query>`
-  - Use when you need to bring a specific part (by part number or query) into tscircuit
-  - Creates a local component wrapper for a supplier part
-  - Example: `tsci import "C14663"` (JLCPCB part number)
+  - Use when you need to bring a specific part into your project
+  - Searches both the tscircuit registry and JLCPCB parts database
+  - Opens an interactive picker to select and import the component
+
+Workflow:
+```bash
+# First, search to find the part number
+tsci search --jlcpcb "ATmega328"
+# Output: ATMEGA328P-AU (C14877) - stock: 20,226
+
+# Then import using the part number or name
+tsci import "C14877"
+# or
+tsci import "ATmega328"
+```
+
+The interactive picker shows:
+- Registry packages (already wrapped by other users): `author/PART_NAME`
+- JLCPCB parts (raw import): `[jlcpcb] PART_NAME (CXXXXXX)`
+
+Tip: If someone has already imported the part, prefer the registry version—it may have better pin mappings or schematic symbols.
 
 6) Build (generate circuit.json)
 - `tsci build` (auto-detects entrypoint)

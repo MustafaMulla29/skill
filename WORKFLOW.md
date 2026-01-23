@@ -10,12 +10,14 @@
 
 3) Search before you model
 - Use `tsci search` to find:
-  - Suitable footprints
-  - Existing registry packages that already wrap a part/module
+  - JLCPCB components: `tsci search --jlcpcb "STM32F4"`
+  - KiCad footprints: `tsci search --kicad "SOIC-8"`
+  - Registry packages: `tsci search --tscircuit "ESP32"`
 
 4) Add/import parts
 - Prefer `tsci add <author/pkg>` when a reusable module exists.
 - Use `tsci import` when you must bring in a specific component (e.g., supplier part).
+- For JLCPCB parts: first search with `tsci search --jlcpcb "<query>"`, then import with `tsci import "<part number>"`.
 
 5) Make a minimal, working first draft
 - Place core IC + passives
