@@ -8,14 +8,13 @@
 ## 2) Establish rails and connectors early
 
 - Decide net names (`net.GND`, `net.VCC`, `net.V3_3`, etc.)
-- **Important:** Net names cannot start with a number. Use `net.V3_3` not `net.3V3`.
 - Add power entry (USB-C, barrel jack, header) and protection (fuse/TVS) as appropriate.
 
 ## 3) Search before you model
 
 - Use `tsci search` to find:
   - JLCPCB components: `tsci search --jlcpcb "STM32F4"`
-  - KiCad footprints: `tsci search --kicad "SOIC-8"`
+  - KiCad footprints: `tsci search --kicad "SOIC8"`
   - Registry packages: `tsci search --tscircuit "ESP32"`
 
 ## 4) Add/import parts
@@ -52,7 +51,6 @@
    ```
 
 4. **Verify pin mappings** - Double-check that:
-   - Pin numbers match the footprint (e.g., SOIC-8 pin 1 is correct)
    - Power pins are marked with `requiresPower` or `providesPower`
    - Critical control pins have `mustBeConnected: true`
    - Multi-function pins have all relevant aliases

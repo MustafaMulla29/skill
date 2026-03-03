@@ -69,7 +69,7 @@ With multi-alias, any of the names can be used in traces:
 
 ```tsx
 <trace from="U1.GP0" to="U2.SDA" />
-<trace from="U1.SPI0_RX" to="U3.MISO" />  // Same pin, different alias
+<trace from="U1.SPI0_RX" to="U3.MISO" />
 ```
 
 ## 4) Pin attributes with `pinAttributes`
