@@ -36,23 +36,6 @@ Units
 
 Use `pinLabels` to map physical pin numbers to meaningful names. This is essential for chips and ICs.
 
-Basic syntax (single label per pin):
-
-```tsx
-<chip
-  name="U1"
-  footprint="soic8"
-  pinLabels={{
-    pin1: "VCC",
-    pin2: "GND",
-    pin3: "IN",
-    pin4: "OUT",
-  }}
-/>
-```
-
-Multi-alias syntax (multiple names for a pin):
-
 ```tsx
 <chip
   name="U1"
@@ -61,6 +44,7 @@ Multi-alias syntax (multiple names for a pin):
     pin1: ["GP0", "SPI0_RX", "I2C0_SDA", "UART0_TX"],
     pin2: ["GP1", "SPI0_CS", "I2C0_SCL", "UART0_RX"],
     pin3: "GND",
+    // ...
   }}
 />
 ```
@@ -108,15 +92,6 @@ Available attributes:
 | `mustBeConnected` | boolean | DRC error if this pin is left floating |
 | `includeInBoardPinout` | boolean | Expose this pin to the board-level pinout |
 
-Bidirectional pins (like I2C data lines) can have both requiresPower and providesPower:
-
-```tsx
-pinAttributes={{
-  SDA: { requiresPower: true, providesPower: true },
-  SCL: { requiresPower: true, providesPower: true },
-}}
-```
-
 ## 5) Type-safe chip components
 
 For reusable chip components, define `pinLabels` as a const and use `ChipProps` for type safety:
@@ -140,13 +115,6 @@ export const MyChip = (props: ChipProps<typeof pinLabels>) => (
 )
 ```
 
-This provides autocomplete and type checking when using the component:
-
-```tsx
-<MyChip name="U1" />
-<trace from="U1.SDA" to="U2.pin1" />
-```
-
 ## 6) Connectivity with `<trace />`
 
 Connect pins with port selectors:
@@ -160,14 +128,6 @@ Connect to named nets. Net names must start with a letter or underscore and can 
 ```tsx
 <trace from="U1.pin1" to="net.GND" />
 <trace from="U1.pin8" to="net.VCC" />
-```
-
-When using `pinLabels`, reference pins by their label:
-
-```tsx
-<trace from="U1.VCC" to="net.V3_3" />
-<trace from="U1.GND" to="net.GND" />
-<trace from="U1.SDA" to="U2.I2C_DATA" />
 ```
 
 Pin labels (in `pinLabels`) can contain letters, numbers, and underscores. Unlike net names, pin labels **can** start with a number (e.g., `"3V3"` is valid).
@@ -197,26 +157,35 @@ Control how pins appear on the schematic symbol with `schPinArrangement`:
 ```tsx
 <chip
   name="U1"
+  footprint="soic16"
   pinLabels={{
-    pin1: "VIN",
-    pin2: "GND",
-    pin3: "VOUT",
-    pin4: "EN",
+    pin1: "VCC1",
+    pin2: "IN1",
+    pin3: "IN2",
+    pin4: "IN3",
+    pin5: "IN4",
+    pin6: "GND1",
+    pin7: "GND2",
+    pin8: "VCC2",
+    pin9: "OUT1",
+    pin10: "OUT2",
+    pin11: "OUT3",
+    pin12: "OUT4",
   }}
   schPinArrangement={{
-    leftSide: { pins: ["VIN", "GND"], direction: "top-to-bottom" },
-    rightSide: { pins: ["VOUT", "EN"], direction: "top-to-bottom" },
+    topSide: { pins: ["VCC1", "VCC2"], direction: "left-to-right" },
+    bottomSide: { pins: ["GND1", "GND2"], direction: "left-to-right" },
+    leftSide: { pins: ["IN1", "IN2", "IN3", "IN4"], direction: "top-to-bottom" },
+    rightSide: { pins: ["OUT1", "OUT2", "OUT3", "OUT4"], direction: "top-to-bottom" },
   }}
 />
 ```
 
 Available sides: `leftSide`, `rightSide`, `topSide`, `bottomSide`
+- Left/right sides use `direction: "top-to-bottom"` or `"bottom-to-top"`
+- Top/bottom sides use `direction: "left-to-right"` or `"right-to-left"`
 
-## 9) Autorouter choices
-
-Boards and subcircuits can set an `autorouter` preset (e.g., `"auto"`, `"sequential-trace"`, `"auto-local"`, `"auto-cloud"`). For complex routing, cloud autorouting is often the most capable.
-
-## 10) Manufacturing helpers
+## 9) Manufacturing helpers
 
 For turnkey assembly you will often want:
 - `supplierPartNumbers` (pin a specific supplier SKU/part number)
