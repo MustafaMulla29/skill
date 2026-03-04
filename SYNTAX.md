@@ -128,6 +128,7 @@ Connect to named nets. Net names must start with a letter or underscore and can 
 ```tsx
 <trace from="U1.pin1" to="net.GND" />
 <trace from="U1.pin8" to="net.VCC" />
+<trace from="U1.pin8" to="net.V3_3" />
 ```
 
 Pin labels (in `pinLabels`) can contain letters, numbers, and underscores. Unlike net names, pin labels **can** start with a number (e.g., `"3V3"` is valid).
