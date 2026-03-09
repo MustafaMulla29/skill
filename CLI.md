@@ -127,8 +127,6 @@ Notes
 - Outputs go to `dist/`.
 
 Useful flags
-- `--ignore-errors` (CI/automation)
-- `--ignore-warnings`
 - `--all-images` (emit PCB/schematic/3D renders into `dist/`)
 
 DRC (Design Rule Check)
