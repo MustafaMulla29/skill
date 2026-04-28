@@ -77,6 +77,33 @@ export default () => (
 )
 ```
 
+## Accessible orientation warning
+
+Placement checks can warn when a connector faces away from the nearest board edge:
+
+```text
+J1 is facing x+ but should face x- so the connector is accessible from the board edge
+```
+
+For side-entry connectors, place the connector near the board edge it should face, then use `pcbRotation` if needed so the cable or mating part enters from that edge.
+
+For vertical-entry connectors, such as a battery connector inserted from above, set `insertionDirection="from_above"` on the `<footprint />`. This tells the checker that the connector does not need to face a board edge.
+
+```tsx
+<connector
+  name="J1"
+  pcbX="0"
+  pcbY="0"
+  footprint={
+    <footprint insertionDirection="from_above">
+      {/* pads / holes */}
+    </footprint>
+  }
+/>
+```
+
+Other insertion directions are `from_left`, `from_right`, `from_front`, and `from_back`.
+
 ## Props
 
 Commonly used: `standard`, `name`, `footprint`, `connections`
