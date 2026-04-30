@@ -41,6 +41,9 @@ tsci search --jlcpcb "ATmega328"
 # Search JLCPCB by part number
 tsci search --jlcpcb "C14877"
 
+# Search JLCPCB for Micro-USB connectors
+tsci search --jlcpcb "micro usb connector"
+
 # Search KiCad footprints
 tsci search --kicad "QFP-32"
 # Output: kicad:Package_QFP/LQFP-32_5x5mm_P0.5mm
