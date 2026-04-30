@@ -41,9 +41,6 @@ tsci search --jlcpcb "ATmega328"
 # Search JLCPCB by part number
 tsci search --jlcpcb "C14877"
 
-# Search for USB-C connectors on JLCPCB
-tsci search --jlcpcb "USB-C 16pin"
-
 # Search KiCad footprints
 tsci search --kicad "QFP-32"
 # Output: kicad:Package_QFP/LQFP-32_5x5mm_P0.5mm
@@ -88,6 +85,7 @@ tsci search --jlcpcb "ATmega328" --json
   - Use when you need to bring a specific part into your project
   - Searches both the tscircuit registry and JLCPCB parts database
   - Opens an interactive picker to select and import the component
+  - For USB-C connectors, prefer `<connector standard="usb_c" />` directly instead of importing from JLCPCB
 
 Workflow:
 ```bash

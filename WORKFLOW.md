@@ -9,6 +9,7 @@
 
 - Decide net names (`net.GND`, `net.VCC`, `net.V3_3`, etc.)
 - Add power entry (USB-C, barrel jack, header) and protection (fuse/TVS) as appropriate.
+- For USB-C, use `<connector standard="usb_c" />` directly (no JLC import needed).
 
 ## 3) Search before you model
 
