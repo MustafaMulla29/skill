@@ -123,6 +123,14 @@ Use `<connector />` for all USB connector footprints (USB-C, Micro-USB, Mini-USB
 
 If a `<chip />` is currently modeling a USB receptacle, plug, or jack, consider refactoring it to `<connector />` so additional USB-specific DRC checks can apply.
 
+For a USB-C connector component, prefer the built-in standard:
+
+```tsx
+<connector name="USBC" standard="usb_c" />
+```
+
+No JLC import is required for this default USB-C connector usage.
+
 ## 7) Connectivity with `<trace />`
 
 Connect pins with port selectors:

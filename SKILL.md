@@ -30,6 +30,7 @@ When this Skill is active:
 
 3) Find and install components
 - Use `tsci search "<query>"` to discover footprints and tscircuit registry packages.
+- For USB-C receptacles/connectors, prefer builtin syntax with `<connector standard="usb_c" />` instead of importing from JLCPCB.
 - Use one of:
   - `tsci add <author/pkg>` for registry packages (installs `@tsci/*` packages)
   - `tsci import <query>` when you need to import a component from JLCPCB or the registry.

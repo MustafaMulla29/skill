@@ -77,6 +77,16 @@ export default () => (
 )
 ```
 
+## USB-C standard example
+
+```tsx
+export default () => (
+  <board width="20mm" height="20mm">
+    <connector name="USBC" standard="usb_c" pcbX={0} pcbY={0} />
+  </board>
+)
+```
+
 ## Accessible orientation warning
 
 Placement checks can warn when a connector faces away from the nearest board edge:
